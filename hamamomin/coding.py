@@ -39,7 +39,7 @@ class CodingAgent:
             raise ValueError('Invalid generated file manifest.')
         total = 0
         for rel, content in files.items():
-            if not isinstance(rel, str) or not isinstance(content, str) or not rel or '\\' in rel or Path(rel).is_absolute() or any(part in ('.', '..') for part in rel.split('/')):
+            if not isinstance(rel, str) or not isinstance(content, str) or not rel or '\\' in rel or rel.startswith('/') or Path(rel).is_absolute() or any(part in ('.', '..') for part in rel.split('/')):
                 raise ValueError('Invalid generated file.')
             p = self.guard.path(name + '/' + rel)
             if not p.is_relative_to(target) or p == target:
