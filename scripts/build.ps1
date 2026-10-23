@@ -27,6 +27,7 @@ Invoke-Checked -Program $python -Arguments @(
     '--paths', '.', '--add-data', 'assets;assets',
     '--collect-all', 'pyttsx3', '--collect-all', 'faster_whisper',
     '--collect-all', 'keyring', '--collect-all', 'sounddevice',
+    '--recursive-copy-metadata', 'faster-whisper',
     '--hidden-import', 'keyring.backends.Windows',
     '--hidden-import', 'pyttsx3.drivers.sapi5', 'scripts/entry.py'
 )
@@ -34,6 +35,7 @@ $binary = Join-Path (Get-Location) 'dist\SheikhHamamomin\SheikhHamamomin.exe'
 if (-not (Test-Path $binary)) { throw 'Expected executable is missing.' }
 $report = Join-Path (Get-Location) 'dist\windows-self-test.json'
 $probe = Start-Process -FilePath $binary -ArgumentList @('--self-test') -PassThru -Wait -NoNewWindow
+if (Test-Path $report) { Get-Content -Raw $report | Write-Host }
 if ($probe.ExitCode -ne 0) { throw "Packaged application self-test failed. See $report" }
 # A windowed executable has no console; the JSON report proves the probe ran.
 if (-not (Test-Path $report)) { throw 'Packaged application did not produce its self-test report.' }

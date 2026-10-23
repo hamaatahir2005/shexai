@@ -41,7 +41,9 @@ def probe(report):
         result['checks'].append('Optional voice and credential modules imported; hardware not tested')
         result['status']='ok'
     except Exception as exc:
+        import traceback
         result['error']=f'{type(exc).__name__}: {exc}'
+        result['traceback']=traceback.format_exc()
     finally:
         if window is not None:
             window.stop();window.close()
