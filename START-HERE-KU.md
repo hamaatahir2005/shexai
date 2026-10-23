@@ -1,6 +1,14 @@
 # دروستکردنی بەرنامەی Windows
 
-ئەم پاکێجە کۆدی سەرچاوە و ئامرازەکانی build ـە؛ هێشتا `.exe` ـی دروستکراوی تێدا نییە. build دەبێت لە Windows ئەنجام بدرێت.
+## داگرتنی بەرنامەی ئامادە
+
+[پاکێجی Windows دابگرە](https://github.com/hamaatahir2005/shexai/actions/runs/39982153041/artifacts/12514112774) (نزیکەی ٢٦٦ MB). لە GitHub چوونەژوورەوە پێویستە.
+
+ZIP ـەکە دەربهێنە، پاشان لە فۆڵدەری `installer` فایلەکەی `SheikhHamamomin-Setup.exe` بکەرەوە. بۆ دامەزراندنی ئەم پاکێجە Python پێویست نییە.
+
+build و پشکنینی `.exe` سەرکەوتوو بوون و ٢٤ تاقیکردنەوە تێپەڕین. بۆ چاتی AI هێشتا پێویستە API یان Ollama ڕێک بخەیت. دەنگی کوردی هێشتا بە نموونەی ڕاستەقینە پشکنراو نییە.
+
+بەشەکانی خوارەوە بۆ دروستکردنەوەی بەرنامەکەن لە کۆدی سەرچاوە.
 
 ## لەسەر کۆمپیوتەرەکەت
 
@@ -27,4 +35,4 @@ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build.ps1 -Installer
 
 کۆدەکە بخەرە repository ـی خۆت لە GitHub. لە Actions، workflow ـی **Build Windows application** بە Run workflow دەست پێ بکە. ئەگەر build سەرکەوتوو بوو، artifact ـی **SheikhHamamomin-Windows-x64** دابگرە؛ ZIP ـی بەرنامە و installer ـی تێدایە. پێویست ناکات کلیلەکانی API بخەیتە repository یان workflow.
 
-ئەم workflow ـە لەم ژینگەیەوە ڕانەکراوە. بە تەنها بوونی فایلەکانی build ناتوانرێت سەرکەوتنی Windows بانگەشە بکرێت.
+workflow ـەکە لە ٢٠٢٦/١٠/٢٣ بە سەرکەوتوویی ڕاگیرا و فایلەکانی بەرنامەکە لە لینکی سەرەوە ئامادەن.

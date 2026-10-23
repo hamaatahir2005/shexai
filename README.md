@@ -1,8 +1,14 @@
 # SHEIKH HAMAMOMIN AI — شێخ حەمەومین
 
-A Python 3.12 Windows desktop assistant with a PySide6 interface, local SQLite memory, explicit action permissions, Sorani-first prompting, and a real project generator. This is an implemented MVP source release, **not a validated production Windows binary**.
+A Python 3.12 Windows desktop assistant with a PySide6 interface, local SQLite memory, explicit action permissions, Sorani-first prompting, and a real project generator. This is an implemented MVP with a Windows x64 executable and installer built and smoke-tested on GitHub Actions (Windows Server 2022). It is not a production-certified release.
 
-## Run on Windows 10 / 11
+## Download the Windows application
+
+[Download installer and portable app (266 MB)](https://github.com/hamaatahir2005/shexai/actions/runs/39982153041/artifacts/12514112774) — sign into GitHub to download this Actions artifact. Extract the outer ZIP, open `installer/SheikhHamamomin-Setup.exe`, and follow the setup wizard. Python is not required. Alternatively, extract the nested `SheikhHamamomin-Windows-x64.zip` completely and launch the EXE inside its folder.
+
+[Successful build and test report](https://github.com/hamaatahir2005/shexai/actions/runs/39982153041): 24 tests passed, one symlink test skipped; the frozen EXE passed Qt startup, SQLite Sorani storage, real React file generation, and optional module imports. The installer compiled successfully; interactive installation, physical audio devices, Kurdish speech quality, and clean Windows 10/11 user machines still require validation. API/model configuration is required for AI chat.
+
+## Run from source on Windows 10 / 11
 
 Install Python 3.12 (64-bit), then open PowerShell in this directory:
 
@@ -111,4 +117,4 @@ Future work: continuously listening wake detector, verified Sorani speech models
 
 See [ڕێنمایی کوردی](START-HERE-KU.md). On Windows x64 with Python 3.12 installed, double-click `BUILD-WINDOWS.cmd` and approve downloading build dependencies. It creates a local virtual environment, installs dependencies, runs tests, freezes the app, runs the packaged `--self-test`, and creates `dist/SheikhHamamomin-Windows-x64.zip`. Extract the entire ZIP before launching the EXE; do not copy the EXE alone.
 
-For a setup installer, install Inno Setup 6 and run `scripts/build.ps1 -Installer`. The manual GitHub Actions workflow `.github/workflows/windows-build.yml` performs the Windows build and uploads the portable ZIP, installer, SHA256, and self-test report. This workflow has been prepared but has not been run in this environment. No prebuilt Windows EXE is included in the source archive.
+For a setup installer, install Inno Setup 6 and run `scripts/build.ps1 -Installer`. The manual GitHub Actions workflow `.github/workflows/windows-build.yml` performs the Windows build and uploads the portable ZIP, installer, SHA256, and self-test report. The workflow successfully built the Windows package on 2026-10-23. Use the download link above for binaries; source ZIPs do not contain the prebuilt EXE.
