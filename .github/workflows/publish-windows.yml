@@ -56,7 +56,7 @@ jobs:
           AI chat needs a configured API or local Ollama model. Speech needs a downloaded model or service; real Kurdish speech quality and clean Windows 10/11 installations have not been validated.
           NOTES
           gh release create v0.1.0 \
-            --target a557a35fba291e64f0ab6a3d1a95980a329788fc \
+            --target "${{ github.sha }}" \
             --title 'SHEIKH HAMAMOMIN AI v0.1.0 - Windows' \
             --notes-file release-notes.md \
             release-files/installer/SheikhHamamomin-Setup.exe \
