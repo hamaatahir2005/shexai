@@ -4,9 +4,11 @@ A Python 3.12 Windows desktop assistant with a PySide6 interface, local SQLite m
 
 ## Download the Windows application
 
-[Download installer and portable app (266 MB)](https://github.com/hamaatahir2005/shexai/actions/runs/39982153041/artifacts/12514112774) — sign into GitHub to download this Actions artifact. Extract the outer ZIP, open `installer/SheikhHamamomin-Setup.exe`, and follow the setup wizard. Python is not required. Alternatively, extract the nested `SheikhHamamomin-Windows-x64.zip` completely and launch the EXE inside its folder.
+[Download Windows installer (106 MB)](https://github.com/hamaatahir2005/shexai/releases/download/v0.1.0/SheikhHamamomin-Setup.exe) — public download, no GitHub sign-in needed. Open the downloaded EXE and follow the setup wizard. Python is not required.
 
-[Successful build and test report](https://github.com/hamaatahir2005/shexai/actions/runs/39982153041): 24 tests passed, one symlink test skipped; the frozen EXE passed Qt startup, SQLite Sorani storage, real React file generation, and optional module imports. The installer compiled successfully; interactive installation, physical audio devices, Kurdish speech quality, and clean Windows 10/11 user machines still require validation. API/model configuration is required for AI chat.
+[Portable ZIP (161 MB)](https://github.com/hamaatahir2005/shexai/releases/download/v0.1.0/SheikhHamamomin-Windows-x64.zip) — fully extract it and run the EXE inside its folder. [All release files and checksums](https://github.com/hamaatahir2005/shexai/releases/tag/v0.1.0).
+
+[Successful build and test report](https://github.com/hamaatahir2005/shexai/actions/runs/39982153041): 24 tests passed, one symlink test skipped; the frozen EXE passed Qt startup, SQLite Sorani storage, real React file generation, and optional module imports. Installer compilation succeeded; interactive installation, physical audio devices, Kurdish speech quality, and clean Windows 10/11 user machines still require validation. API/model configuration is required for AI chat.
 
 ## Run from source on Windows 10 / 11
 

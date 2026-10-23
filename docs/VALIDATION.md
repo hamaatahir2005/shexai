@@ -44,3 +44,10 @@ Run: https://github.com/hamaatahir2005/shexai/actions/runs/39982153041
 Initial Windows attempts exposed slash-rooted manifest paths and delayed SQLite handle closure. Both were fixed and covered by tests before the successful build. Packaging diagnostics are retained in the workflow.
 
 Still unvalidated: interactive installer execution/uninstall; clean Windows 10 and 11 machines; real microphone/speakers and Sorani speech quality; real API services; physical desktop automation; generated frontend npm build. A successful packaging smoke test is not evidence of those integrations.
+
+
+## Public download fix — 2026-10-23
+
+Actions artifact links require GitHub sign-in and were reported as 404. Published the existing verified binaries as public Release v0.1.0 through workflow run 39984190511. Verified the source portable ZIP SHA256, packaged self-test status, and installer PE header before publishing. Release API confirms a non-draft release and all five assets uploaded. Installer: 105,796,425 bytes; portable ZIP: 160,885,718 bytes. Public links do not require Actions artifact authentication.
+
+Release: https://github.com/hamaatahir2005/shexai/releases/tag/v0.1.0
