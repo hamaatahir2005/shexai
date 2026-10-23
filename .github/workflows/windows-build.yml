@@ -1,0 +1,31 @@
+name: Build Windows application
+on:
+  push:
+    branches: [main]
+    paths-ignore: ["**.md", "docs/**"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          architecture: x64
+      - name: Build, test, package and create installer
+        shell: pwsh
+        run: ./scripts/build.ps1 -Installer
+      - name: Upload portable app and installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: SheikhHamamomin-Windows-x64
+          if-no-files-found: error
+          path: |
+            dist/SheikhHamamomin-Windows-x64.zip
+            dist/installer/SheikhHamamomin-Setup.exe
+            dist/windows-self-test.json
+            dist/SHA256.txt
