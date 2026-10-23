@@ -26,6 +26,13 @@ class Smoke(unittest.TestCase):
         other.edit_message(1,'new');self.assertEqual(other.history()[0]['content'],'new')
         self.assertEqual(len(other.export()['events']),1)
         other.clear();self.assertEqual(other.history(),[])
+    def test_connection_closes(self):
+        import sqlite3
+        with self.memory.connect() as db:
+            self.assertEqual(db.execute('SELECT 1').fetchone()[0],1)
+        with self.assertRaises(sqlite3.ProgrammingError):db.execute('SELECT 1')
+        moved=self.memory.path.with_suffix('.moved')
+        self.memory.path.rename(moved);moved.rename(self.memory.path)
     def test_paths(self):
         for value in ['../escape','/etc/passwd','CON','NUL.txt','x/a:stream']:
             with self.subTest(value=value),self.assertRaises(Denied):self.guard.path(value)

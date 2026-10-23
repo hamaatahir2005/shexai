@@ -24,9 +24,13 @@ class Memory:
 
     @contextmanager
     def connect(self):
-        with sqlite3.connect(self.path, timeout=15) as db:
+        db = sqlite3.connect(self.path, timeout=15)
+        try:
             db.row_factory = sqlite3.Row
-            yield db
+            with db:
+                yield db
+        finally:
+            db.close()
 
     def add(self, role, content):
         with self.connect() as db:

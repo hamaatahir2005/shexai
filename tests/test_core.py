@@ -115,3 +115,15 @@ def test_service():
     from fastapi.testclient import TestClient
     from hamamomin.service import app
     assert TestClient(app).get('/health').json()['tools_exposed'] is False
+
+
+def test_sqlite_connection_releases_windows_file(core):
+    import sqlite3
+    with core[0].connect() as db:
+        assert db.execute('SELECT 1').fetchone()[0]==1
+    with pytest.raises(sqlite3.ProgrammingError):
+        db.execute('SELECT 1')
+    original=core[0].path
+    moved=original.with_suffix('.moved')
+    original.rename(moved)
+    moved.rename(original)
