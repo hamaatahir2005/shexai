@@ -1,0 +1,66 @@
+name: Publish Windows download
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-windows.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: publish-windows-v0.1.0
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Download verified Windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: SheikhHamamomin-Windows-x64
+          run-id: 39982153041
+          github-token: ${{ github.token }}
+          path: release-files
+      - name: Verify packaged self-test and portable archive
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, pathlib, re
+          root=pathlib.Path('release-files')
+          report=json.loads((root/'windows-self-test.json').read_text(encoding='utf-8-sig'))
+          assert report['status']=='ok', report
+          archive=root/'SheikhHamamomin-Windows-x64.zip'
+          expected=re.findall(r'\b[A-Fa-f0-9]{64}\b', (root/'SHA256.txt').read_text(encoding='utf-8-sig'))
+          actual=hashlib.sha256(archive.read_bytes()).hexdigest()
+          assert actual.upper() in {x.upper() for x in expected}, 'ZIP checksum mismatch'
+          installer=root/'installer/SheikhHamamomin-Setup.exe'
+          assert installer.is_file() and installer.stat().st_size>1_000_000, 'Installer missing'
+          assert installer.read_bytes()[:2]==b'MZ', 'Invalid Windows executable header'
+          (root/'installer-SHA256.txt').write_text(hashlib.sha256(installer.read_bytes()).hexdigest()+'  SheikhHamamomin-Setup.exe\n',encoding='utf-8')
+          print('Verified existing build, installer header, and ZIP checksum.')
+          PY
+      - name: Publish public release downloads
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          cat > release-notes.md <<'NOTES'
+          Windows x64 MVP installer and portable app from verified build 39982153041.
+
+          Download SheikhHamamomin-Setup.exe to install. Python is not required.
+          Alternatively, fully extract the portable ZIP and run the EXE inside its folder.
+
+          Windows CI: 24 tests passed, one skipped. Frozen-app smoke tests passed.
+          AI chat needs a configured API or local Ollama model. Speech needs a downloaded model or service; real Kurdish speech quality and clean Windows 10/11 installations have not been validated.
+          NOTES
+          gh release create v0.1.0 \
+            --target a557a35fba291e64f0ab6a3d1a95980a329788fc \
+            --title 'SHEIKH HAMAMOMIN AI v0.1.0 - Windows' \
+            --notes-file release-notes.md \
+            release-files/installer/SheikhHamamomin-Setup.exe \
+            release-files/SheikhHamamomin-Windows-x64.zip \
+            release-files/windows-self-test.json \
+            release-files/SHA256.txt \
+            release-files/installer-SHA256.txt
